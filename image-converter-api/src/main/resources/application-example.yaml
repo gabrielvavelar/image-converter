@@ -1,3 +1,8 @@
 spring:
   application:
     name: image-converter-api
+
+aws:
+  region: ${AWS_REGION}
+  s3:
+    bucket:
