@@ -7,3 +7,14 @@ spring:
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
+
+    rabbitmq:
+      host: ${RABBITMQ_HOST:localhost}
+      port: ${RABBITMQ_PORT:5672}
+      username: ${RABBITMQ_USERNAME:guest}
+      password: ${RABBITMQ_PASSWORD:guest}
+
+aws:
+  region: ${AWS_REGION}
+  s3:
+    bucket: ${AWS_BUCKET}
