@@ -8,4 +8,6 @@ import java.io.InputStream;
 
 public interface FileStorageService {
     InputStream loadImage(UUID id, ImageFormat extension);
+
+    void storeImage(byte[] file, UUID id, ImageFormat extension);
 }
