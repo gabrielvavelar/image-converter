@@ -19,7 +19,7 @@ public class RabbitMQMessagePublisherService implements MessagePublisherService 
     @Override
     public void sendToQueue(UUID taskId) {
         try {
-            rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_NAME, taskId);
+            rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_NAME, taskId.toString());
         } catch (AmqpException e) {
             throw new RabbitMQMessageException("Failed to send message to RabbitMQ queue"
                     + RabbitMQConfig.QUEUE_NAME,
