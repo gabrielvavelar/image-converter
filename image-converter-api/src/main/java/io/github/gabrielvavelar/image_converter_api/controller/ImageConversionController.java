@@ -1,6 +1,7 @@
 package io.github.gabrielvavelar.image_converter_api.controller;
 
 import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionRequestDTO;
+import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionsResponseDTO;
 import io.github.gabrielvavelar.image_converter_api.enums.ImageFormat;
 import io.github.gabrielvavelar.image_converter_api.service.ImageConversionService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,10 @@ public class ImageConversionController {
     private final ImageConversionService service;
 
     @PostMapping
-    public void convertImage(
+    public ResponseEntity<ImageConversionsResponseDTO> convertImage(
             @ModelAttribute ImageConversionRequestDTO request) {
 
-        service.convertImage(request);
+        return ResponseEntity.accepted().body(service.convertImage(request));
     }
 
     @GetMapping()

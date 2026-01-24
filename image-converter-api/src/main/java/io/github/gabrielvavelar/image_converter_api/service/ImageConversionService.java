@@ -1,8 +1,10 @@
 package io.github.gabrielvavelar.image_converter_api.service;
 
 import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionRequestDTO;
+import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionsResponseDTO;
 import io.github.gabrielvavelar.image_converter_api.enums.ImageFormat;
 import io.github.gabrielvavelar.image_converter_api.factory.ImageConversionTaskFactory;
+import io.github.gabrielvavelar.image_converter_api.model.ImageConversionTask;
 import io.github.gabrielvavelar.image_converter_api.repository.ImageConversionTaskRepository;
 import io.github.gabrielvavelar.image_converter_api.service.messaging.MessagePublisherService;
 import io.github.gabrielvavelar.image_converter_api.service.storage.FileStorageService;
@@ -23,16 +25,19 @@ public class ImageConversionService {
     private final MessagePublisherService messagePublisherService;
 
     @Transactional
-    public void convertImage(ImageConversionRequestDTO requestDTO) {
+    public ImageConversionsResponseDTO convertImage(ImageConversionRequestDTO requestDTO) {
 
         UUID taskId = UUID.randomUUID();
 
         String inputPath = storageService.saveImage(requestDTO.imageFile(), taskId, requestDTO.sourceFormat());
 
-        repository.save(factory.createImageConversionTask(requestDTO, taskId, inputPath));
+        ImageConversionTask task = factory.createImageConversionTask(requestDTO, taskId, inputPath);
+
+        repository.save(task);
 
         messagePublisherService.sendToQueue(taskId);
 
+        return ImageConversionsResponseDTO.from(task);
     }
 
     public InputStream loadConvertedImage(UUID id, ImageFormat format) {
