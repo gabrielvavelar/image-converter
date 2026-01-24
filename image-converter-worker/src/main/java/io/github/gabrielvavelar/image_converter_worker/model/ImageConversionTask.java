@@ -18,8 +18,6 @@ public class ImageConversionTask {
     private UUID id;
 
     private String originalName;
-    private String inputPath;
-    private String outputPath;
 
     @Enumerated(EnumType.STRING)
     private ImageFormat sourceFormat;

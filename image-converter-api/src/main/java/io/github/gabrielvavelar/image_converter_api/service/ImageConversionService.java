@@ -29,9 +29,9 @@ public class ImageConversionService {
 
         UUID taskId = UUID.randomUUID();
 
-        String inputPath = storageService.saveImage(requestDTO.imageFile(), taskId, requestDTO.sourceFormat());
+        storageService.saveImage(requestDTO.imageFile(), taskId, requestDTO.sourceFormat());
 
-        ImageConversionTask task = factory.createImageConversionTask(requestDTO, taskId, inputPath);
+        ImageConversionTask task = factory.createImageConversionTask(requestDTO, taskId);
 
         repository.save(task);
 

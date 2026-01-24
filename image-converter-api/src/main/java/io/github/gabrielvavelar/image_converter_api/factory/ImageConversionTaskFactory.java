@@ -11,14 +11,11 @@ import java.util.UUID;
 public class ImageConversionTaskFactory {
     public ImageConversionTask createImageConversionTask(
             ImageConversionRequestDTO requestDTO,
-            UUID taskId,
-            String inputPath) {
+            UUID taskId) {
 
         ImageConversionTask conversionTask = new ImageConversionTask();
         conversionTask.setId(taskId);
         conversionTask.setOriginalName(requestDTO.imageFile().getOriginalFilename());
-        conversionTask.setInputPath(inputPath);
-        conversionTask.setOutputPath(null);
         conversionTask.setSourceFormat(requestDTO.sourceFormat());
         conversionTask.setTargetFormat(requestDTO.targetFormat());
         conversionTask.setStatus(ConversionStatus.PENDING);
