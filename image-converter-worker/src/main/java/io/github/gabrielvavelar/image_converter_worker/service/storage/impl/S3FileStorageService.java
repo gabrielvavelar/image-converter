@@ -28,7 +28,7 @@ public class S3FileStorageService implements FileStorageService {
     @Override
     public InputStream loadImage(UUID id, ImageFormat extension) {
 
-        String key = "/input/" + id + "." + extension.name().toLowerCase();
+        String key = "input/" + id + "." + extension.name().toLowerCase();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
@@ -45,7 +45,7 @@ public class S3FileStorageService implements FileStorageService {
 
     @Override
     public void storeImage(byte[] file, UUID id, ImageFormat extension) {
-        String key = "/output/" + id + "." + extension.name().toLowerCase();
+        String key = "output/" + id + "." + extension.name().toLowerCase();
 
         try {
             PutObjectRequest putOb = PutObjectRequest.builder()
