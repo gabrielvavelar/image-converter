@@ -1,6 +1,7 @@
 package io.github.gabrielvavelar.image_converter_api.service;
 
 import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionRequestDTO;
+import io.github.gabrielvavelar.image_converter_api.enums.ImageFormat;
 import io.github.gabrielvavelar.image_converter_api.factory.ImageConversionTaskFactory;
 import io.github.gabrielvavelar.image_converter_api.repository.ImageConversionTaskRepository;
 import io.github.gabrielvavelar.image_converter_api.service.messaging.MessagePublisherService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.util.UUID;
 
 @Service
@@ -31,6 +33,10 @@ public class ImageConversionService {
 
         messagePublisherService.sendToQueue(taskId);
 
+    }
+
+    public InputStream loadConvertedImage(UUID id, ImageFormat format) {
+        return storageService.loadImage(id, format);
     }
 
 }
