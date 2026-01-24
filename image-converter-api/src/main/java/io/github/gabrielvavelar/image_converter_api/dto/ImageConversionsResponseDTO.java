@@ -10,14 +10,16 @@ public record ImageConversionsResponseDTO(
         UUID id,
         ConversionStatus status,
         ImageFormat sourceFormat,
-        ImageFormat targetFormat
-) {
+        ImageFormat targetFormat,
+        String originalName) {
+
     public static ImageConversionsResponseDTO from(ImageConversionTask task) {
         return new ImageConversionsResponseDTO(
                 task.getId(),
                 task.getStatus(),
                 task.getSourceFormat(),
-                task.getTargetFormat()
+                task.getTargetFormat(),
+                task.getOriginalName()
         );
     }
 }
