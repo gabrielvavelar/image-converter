@@ -2,6 +2,7 @@ package io.github.gabrielvavelar.image_converter_api.service;
 
 import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionRequestDTO;
 import io.github.gabrielvavelar.image_converter_api.dto.ImageConversionsResponseDTO;
+import io.github.gabrielvavelar.image_converter_api.enums.ConversionStatus;
 import io.github.gabrielvavelar.image_converter_api.enums.ImageFormat;
 import io.github.gabrielvavelar.image_converter_api.factory.ImageConversionTaskFactory;
 import io.github.gabrielvavelar.image_converter_api.model.ImageConversionTask;
@@ -42,6 +43,12 @@ public class ImageConversionService {
 
     public InputStream loadConvertedImage(UUID id, ImageFormat format) {
         return storageService.loadImage(id, format);
+    }
+
+    public String getStatus(UUID id) {
+        return repository.findById(id)
+                .map(task -> task.getStatus().name())
+                .orElse("NOT_FOUND");
     }
 
 }

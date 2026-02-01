@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +42,11 @@ public class ImageConversionController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + finalFileName + "\"")
                 .contentType(MediaType.parseMediaType("image/" + format.name().toLowerCase()))
                 .body(new InputStreamResource(image));
+    }
+
+    @GetMapping("/{id}/status")
+    public ResponseEntity<Map<String, String>> getStatus(@PathVariable UUID id) {
+        return ResponseEntity.ok(Map.of("status", service.getStatus(id)));
     }
 
 }
